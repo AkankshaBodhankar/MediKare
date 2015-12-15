@@ -1,52 +1,41 @@
 package medikare.example.akankshabodhankar.medikare;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
-import java.util.Calendar;
+public class AddMedicine extends Fragment{
 
-/**
- * Created by akanksha bodhankar on 08-12-2015.
- */
-public class AddMedicine extends Activity{
-    Button bt;
-    TextView tv;
-    Calendar calendar = Calendar.getInstance();
-    static final int dialog_id=0;//to get appropriate dialog
-    int hour,minute;
+    ImageView ivIcon;
+    TextView tvItemName;
+
+    public static final String IMAGE_RESOURCE_ID = "iconResourceID";
+    public static final String ITEM_NAME = "itemName";
+
+    public AddMedicine() {
+
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.addmedicine);
-        tv = (TextView)findViewById(R.id.starttime);
-        showTimePickerDialog();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-    }
-    public void showTimePickerDialog()
-    {
-        bt = (Button)findViewById(R.id.button);
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               new TimePickerDialog(AddMedicine.this,onTimeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true).show();
-            }
-        });
-    }
-     TimePickerDialog.OnTimeSetListener onTimeSetListener=
-             new TimePickerDialog.OnTimeSetListener() {
-                 @Override
-                 public void onTimeSet(TimePicker view, int hourOfDay, int hour_minute) {
-                     hour = hourOfDay;
-                     minute = hour_minute;
-                     tv.setText("Choosen time is:"+hour+":"+hour_minute);
+        View view = inflater.inflate(R.layout.addmedicine, container,
+                false);
 
-                 }
-             };
+        ivIcon = (ImageView) view.findViewById(R.id.addmedicine_icon);
+        tvItemName = (TextView) view.findViewById(R.id.addmedicine_text);
+
+        tvItemName.setText(getArguments().getString(ITEM_NAME));
+        ivIcon.setImageDrawable(view.getResources().getDrawable(
+                getArguments().getInt(IMAGE_RESOURCE_ID)));
+        return view;
+    }
+
+
 }
