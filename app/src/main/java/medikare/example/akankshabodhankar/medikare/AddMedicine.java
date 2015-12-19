@@ -1,41 +1,50 @@
 package medikare.example.akankshabodhankar.medikare;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.TimePicker;
 
-public class AddMedicine extends Fragment{
+import java.util.Calendar;
 
-    ImageView ivIcon;
-    TextView tvItemName;
-
-    public static final String IMAGE_RESOURCE_ID = "iconResourceID";
-    public static final String ITEM_NAME = "itemName";
-
-    public AddMedicine() {
-
-    }
-
+/**
+ * Created by akanksha bodhankar on 08-12-2015.
+ */
+public class AddMedicine extends Activity{
+    Button bt_submit,bt_picktime;
+    Calendar calendar = Calendar.getInstance();
+    static final int dialog_id=0;//to get appropriate dialog
+    int hour,minute;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.addmedicine);
+       // bt_picktime = (Button)findViewById(R.id.picktime_button);
+        showTimePickerDialog();
+       /*dbhelper dbh = new dbhelper(this,"MediKare.db",null,1);
+        db = dbh.getWritableDatabase();*/
 
-        View view = inflater.inflate(R.layout.addmedicine, container,
-                false);
-
-        ivIcon = (ImageView) view.findViewById(R.id.addmedicine_icon);
-        tvItemName = (TextView) view.findViewById(R.id.addmedicine_text);
-
-        tvItemName.setText(getArguments().getString(ITEM_NAME));
-        ivIcon.setImageDrawable(view.getResources().getDrawable(
-                getArguments().getInt(IMAGE_RESOURCE_ID)));
-        return view;
     }
+    public void showTimePickerDialog()
+    {
+       // bt_submit = (Button)findViewById(R.id.picktime_button);
+        bt_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TimePickerDialog(AddMedicine.this,onTimeSetListener,calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true).show();
+            }
+        });
+    }
+    TimePickerDialog.OnTimeSetListener onTimeSetListener=
+            new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int hour_minute) {
+                    hour = hourOfDay;
+                    minute = hour_minute;
+                    bt_picktime.setText("Choosen time is:"+hour+":"+hour_minute);
 
-
+                }
+            };
 }
