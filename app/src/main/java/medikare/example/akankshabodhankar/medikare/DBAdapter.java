@@ -15,20 +15,22 @@ public class DBAdapter {
     public static final String KEY_ROWID = "_id";
     public static final String KEY_NAME = "name";
     public static final String KEY_TIME = "time";
-    public static final String KEY_FREQUENCY = "frequency";
+    public static final String KEY_DOSAGE = "dosage";
+    public static final String KEY_PURPOSE = "purpose";
 
-    public static final String[] ALL_KEYS = new String[] {KEY_ROWID, KEY_NAME,KEY_TIME,KEY_FREQUENCY};
+    public static final String[] ALL_KEYS = new String[] {KEY_ROWID, KEY_NAME,KEY_TIME,KEY_DOSAGE,KEY_PURPOSE};
 
     // Column Numbers for each Field Name:
     public static final int COL_ROWID = 0;
     public static final int COL_NAME = 1;
     public static final int COL_TIME = 2;
-    public static final int COL_FREQUENCY = 1;
+    public static final int COL_DOSAGE = 3;
+    public static final int COL_PURPOSE = 4;
 
 
     // DataBase info:
     public static final String DATABASE_NAME = "dbMediKare";
-    public static final String DATABASE_TABLE = "Medicines";
+    public static final String DATABASE_TABLE = "Medicine";
     public static final int DATABASE_VERSION = 2; // The version number must be incremented each time a change to DB structure occurs.
 
     //SQL statement to create database
@@ -36,8 +38,9 @@ public class DBAdapter {
             "CREATE TABLE " + DATABASE_TABLE
                     + " (" + KEY_ROWID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + KEY_NAME + " TEXT NOT NULL, "
-                    + KEY_TIME + "INT"
-                    +KEY_FREQUENCY+"TEXT"
+                    + KEY_TIME + "TEXT NOT NULL"
+                    +KEY_DOSAGE+"TEXT"
+                    +KEY_PURPOSE+"TEXT"
                     + ");";
 
     private final Context context;
@@ -62,11 +65,15 @@ public class DBAdapter {
     }
 
     // Add a new set of values to be inserted into the database.
-    public long insertRow(String name, String time,String frequency) {
+    public long insertRow(String name, String time,String dosage,String purpose) {
+
+        Log.e("medicare", "dbadapter name =" + name + " time =" + time + " dosage=" + dosage +" purpose="+purpose);
+
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_TIME, time);
-        initialValues.put(KEY_FREQUENCY,frequency);
+        initialValues.put(KEY_DOSAGE,dosage);
+        initialValues.put(KEY_PURPOSE,purpose);
 
         // Insert the data into the database.
         return db.insert(DATABASE_TABLE, null, initialValues);
@@ -111,12 +118,13 @@ public class DBAdapter {
     }
 
     // Change an existing row to be equal to new data.
-    public boolean updateRow(long rowId, String name, String time,String frequency) {
+    public boolean updateRow(long rowId, String name, String time,String dosage,String purpose) {
         String where = KEY_ROWID + "=" + rowId;
         ContentValues newValues = new ContentValues();
         newValues.put(KEY_NAME, name);
         newValues.put(KEY_TIME, time);
-        newValues.put(KEY_FREQUENCY, frequency);
+        newValues.put(KEY_DOSAGE, dosage);
+        newValues.put(KEY_PURPOSE, purpose);
         // Insert it into the database.
         return db.update(DATABASE_TABLE, newValues, where, null) != 0;
     }
@@ -130,6 +138,7 @@ public class DBAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase _db) {
+
             _db.execSQL(DATABASE_CREATE_SQL);
         }
 

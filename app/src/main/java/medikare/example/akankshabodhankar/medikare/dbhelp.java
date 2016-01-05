@@ -1,15 +1,15 @@
 package medikare.example.akankshabodhankar.medikare;
 
-/**
- * Created by akanksha bodhankar on 11-12-2015.
- */
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-public class dbhelper extends SQLiteOpenHelper {
 
-    public dbhelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+/**
+ * Created by akanksha bodhankar on 11-12-2015.
+ */
+public class dbhelp extends SQLiteOpenHelper {
+
+    public dbhelp(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -20,7 +20,7 @@ public class dbhelper extends SQLiteOpenHelper {
     }
 
     @Override
-      public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String str = "drop table medicines";
         db.execSQL(str);
         onCreate(db);

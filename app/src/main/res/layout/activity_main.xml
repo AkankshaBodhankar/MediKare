@@ -2,38 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    >
+    android:orientation="horizontal">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"></include>
 
 
     <TextView
+        android:id="@+id/addmedicine_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ADD MEDICINE +"
-        android:id="@+id/add_medicine"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:layout_margin="15dp"
-         />
+        android:text="ADD MEDICINE +"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView
+        android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/add_medicine" />
+        android:layout_below="@+id/addmedicine_tv" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="REMOVE MEDICINE"
-        android:id="@+id/remove_medicine"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="15dp"
-        />
 </RelativeLayout>

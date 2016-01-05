@@ -7,22 +7,29 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TabHost;
+import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends Activity {
-    DBAdapter myDB;
+    DBAdapter mydb;
+    TextView addmedicine_tv;
    /* int[] imageIDs= {
             R.drawable.capsule,
             R.drawable.capsule2,
@@ -32,11 +39,22 @@ public class MainActivity extends Activity {
    // int nextImageIndex = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState){
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        addmedicine_tv=(TextView)findViewById(R.id.addmedicine_tv);
+
+        addmedicine_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),AddMedicine.class);
+                startActivity(i);
+
+            }
+        });
+
         openDB();
-        populateListViewFromDB();
+//        populateListView();
     }
 
 
@@ -49,35 +67,26 @@ public class MainActivity extends Activity {
 
     private void openDB()
     {
-        myDB= new DBAdapter(this);
-        myDB.open();
+        mydb= new DBAdapter(this);
+        mydb.open();
     }
 
     private void closeDB()
     {
-        myDB.close();
-    }
-
-    public void onClick_AddRecord(View v)
-    {
-        /*int imageid = imageIDs[nextImageIndex];
-        nextImageIndex = (nextImageIndex+1)%imageIDs.length;*/
-
-        //Add yo DB and redraw the Listview
-        myDB.insertRow("Crocin",imageid, "Daily");
-        populateListViewFromDB();
+        mydb.close();
     }
 
     public void onClick_ClearAll(View v)
     {
-        myDB.deleteAll();
+        mydb.deleteAll();
         populateListViewFromDB();
     }
 
     private void populateListViewFromDB() {
-        Cursor cursor = myDB.getAllRows();
+        Cursor cursor = mydb.getAllRows();
 
         //Allow Activity to mange lifetime of cursor
+
         //DEPRECATED!
         startManagingCursor(cursor);
 
@@ -95,8 +104,43 @@ public class MainActivity extends Activity {
         );
 
         //Set the adpter for ListView
-        ListView myList = (ListView)findViewById(R.id.listView);
+        ListView myList = (ListView)findViewById(R.id.list);
         myList.setAdapter(myCursorAdapter);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+       /* if(id==R.id.action_settings)
+        {
+            //intent to settings page
+        }*/
+        if(id==R.id.navigate)
+        {
+            startActivity(new Intent(this,AddMedicine.class));
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    public void populateListView()
+    {
+        Cursor cursor = mydb.getAllRows();
+        String[] fromFieldNames = new String[] {DBAdapter.KEY_ROWID,DBAdapter.KEY_NAME,DBAdapter.KEY_TIME};
+        int[] toViewIDs = new int[]{R.id.item_name_tv,R.id.item_purpose_tv,R.id.item_time_tv};
+        SimpleCursorAdapter myCursorAdapter;
+        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(),R.layout.item_layout,cursor,fromFieldNames,toViewIDs,0);
+        ListView mylist = (ListView)findViewById(R.id.list);
+        mylist.setAdapter(myCursorAdapter);
+
+    }
+
+
+
 
 }
