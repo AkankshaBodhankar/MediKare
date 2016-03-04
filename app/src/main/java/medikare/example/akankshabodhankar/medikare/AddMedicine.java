@@ -23,12 +23,14 @@ import java.util.Calendar;
  */
 public class AddMedicine extends Activity {
 
-    //static SQLiteDatabase db= null;
-    private DBAdapter mydb;
-    EditText name_et,dosage_et,purpose_et;
+    EditText name_et,dosage_et,purpose_et,id_et;
     Button submit_bt;
     TextView timepicker_tv;
-    String name,purpose,time,dosage;
+    String id;
+    String name;
+    String purpose;
+    String time;
+    String dosage;
     Calendar calendar = Calendar.getInstance();
     static final int dialog_id=0;//to get appropriate dialog
     int hour=0,minute=0;
@@ -36,34 +38,29 @@ public class AddMedicine extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addmedicine);
-        openDB();
 
-
-        /*dbhelp dbh = new dbhelp(this, "Medikare.db", null, 1);//creating a database
-        db = dbh.getWritableDatabase();*/
 
         timepicker_tv = (TextView)findViewById(R.id.timepicker_tv);
-
         submit_bt = (Button)findViewById(R.id.submit_bt);
-
         name_et = (EditText)findViewById(R.id.name_et);
         dosage_et = (EditText)findViewById(R.id.dosage_et);
         purpose_et = (EditText)findViewById(R.id.purpose_et);
-
-
+        id_et = (EditText)findViewById(R.id.id_et);
         showTimePickerDialog();
 
+
+/*
         submit_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // insert();
-                OnClick_Add(v);
+                insert();
+               // OnClick_Add(v);
 
             }
-        });
+        });*/
     }
 
-   /* private void insert() {
+  /* private void insert() {
 
         name = name_et.getText().toString();
         time = String.valueOf(hour+minute);
@@ -75,7 +72,7 @@ public class AddMedicine extends Activity {
         cv.put("name",name);
         cv.put("time",time);
         cv.put("dosage", dosage);
-        cv.put("purpose",purpose);
+        cv.put("purpose", purpose);
         long r = db.insert("medicines",null,cv);
 
         if(r==-1)
@@ -105,23 +102,16 @@ public class AddMedicine extends Activity {
 
                 }
             };
-    private void openDB()
+    public void saveData(View view)
     {
-        mydb = new DBAdapter(this);
-        mydb.open();
-    }
-    public void OnClick_Add(View v)
-    {
-        if(name_et.getText().toString()!=" "&& timepicker_tv.getText().toString()!=" ")
-        {
-            Log.e("medicare", "add medicine  name =" + name_et.getText().toString() + " time =" + timepicker_tv.getText().toString() + " dosage=" + dosage_et.getText().toString() + " purpose=" + purpose_et.getText().toString());
-            long r=mydb.insertRow(name_et.getText().toString(),timepicker_tv.getText().toString(),dosage_et.getText().toString(),purpose_et.getText().toString());
-            if(r==-1)
-                Toast.makeText(getApplicationContext(), "Text not inserted", Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(getApplicationContext(),"Text inserted",Toast.LENGTH_LONG).show();
-        }
-
+        id = id_et.getText().toString();
+        name = name_et.getText().toString();
+        time = String.valueOf(hour + minute);
+        dosage=dosage_et.getText().toString();
+        purpose= purpose_et.getText().toString();
+        BackgroundTask backgroundTask = new BackgroundTask(this);
+        backgroundTask.execute("add_info",id,name,time,dosage,purpose);
+        finish();
     }
 
 }

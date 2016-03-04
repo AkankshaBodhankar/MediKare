@@ -17,9 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListMed"></activity>
-        <activity android:name=".ViewDetails"></activity>
-        <activity android:name=".ViewHistory"></activity>
         <activity android:name=".AddMedicine"></activity>
     </application>
 
