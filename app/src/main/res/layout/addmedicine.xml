@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#FEE8D6">
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -8,16 +10,19 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Name "
         android:id="@+id/name_tv"
+        android:textColor="#BE2625"
         android:layout_marginTop="20dp"
+        android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:id="@+id/name_et"
         android:hint="Crocin"
+        android:background="@drawable/edittext_design"
         android:layout_below="@+id/name_tv"
         android:layout_marginTop="20dp"
         android:layout_alignParentLeft="true"
@@ -32,17 +37,20 @@
         android:text="Dosage"
         android:id="@+id/dosage_tv"
         android:layout_marginTop="20dp"
+        android:textColor="#BE2625"
         android:layout_below="@+id/name_et"
+        android:textStyle="bold"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:id="@+id/dosage_et"
         android:layout_marginTop="20dp"
         android:hint="2"
         android:layout_below="@+id/dosage_tv"
+        android:background="@drawable/edittext_design"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -51,9 +59,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#BE2625"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Purpose"
         android:id="@+id/purpose_tv"
+        android:textStyle="bold"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/dosage_et"
         android:layout_alignParentLeft="true"
@@ -61,9 +71,10 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/purpose_et"
         android:hint="Fever"
+        android:background="@drawable/edittext_design"
         android:layout_below="@+id/purpose_tv"
         android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
@@ -79,6 +90,8 @@
         android:layout_below="@id/purpose_et"
         android:layout_marginTop="40dp"
         android:id="@+id/timepicker_tv"
+        android:textStyle="bold"
+        android:textColor="#BE2625"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
@@ -88,27 +101,8 @@
         android:text="Submit"
         android:id="@+id/submit_bt"
         android:onClick="saveData"
+        android:background="#BE2625"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ID"
-        android:id="@+id/textView"
-        android:layout_below="@+id/timepicker_tv"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/id_et"
-        android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"

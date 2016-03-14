@@ -2,11 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/app_bar"></include>
+    android:orientation="horizontal"
+    android:background="#FEE8D6">
 
 
     <TextView
@@ -17,14 +14,22 @@
         android:layout_alignParentTop="true"
         android:layout_margin="15dp"
         android:text="ADD MEDICINE +"
+        android:textStyle="bold"
+        android:textColor="#BE2625"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ListView
-        android:id="@+id/list_medicines"
+        android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor ="#BE2625"
+        android:textStyle="bold"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:divider="@drawable/listview_divider"
+        android:dividerHeight="4px"
         android:layout_below="@+id/addmedicine_tv" />
+
+
 
 </RelativeLayout>
